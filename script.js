@@ -1,1 +1,3 @@
-import hello from "./js/hello";
+document.addEventListener("DOMContentLoaded", function(event) {
+  //do work here
+});
