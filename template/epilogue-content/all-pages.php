@@ -36,8 +36,8 @@
   </div>
 </div>
 
-<? // Cursor is visible when cursor is on an image ?>
-<div class="cursor" style="left: 0px; top: 0px;"></div>   <!-- Добавить  visible для видимости. -->
+<? // Cursor element is visible when mouse cursor is over image ?>
+<div class="cursor" id="cursor"></div>
 
 <? // Here is base JS script ?>
 <script src="/script.js"></script>
