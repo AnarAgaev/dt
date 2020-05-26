@@ -1,4 +1,4 @@
-<? // We getting data for this page at the "template/prolog/index-page.php" component ?>
+<? // Getting data for this component at the "template/prolog/index-page.php" ?>
 <div class="container">
   <div class="article-list__title row">
     <div class="col-12">

@@ -39,7 +39,7 @@
 
     <div class="container">
       <div class="d-flex mb-5 justify-content-center">
-        <button class="button px-5 py-4" style="display: block;">
+        <button class="button px-5 py-4">
           показать больше интересного
         </button>
       </div>

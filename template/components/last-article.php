@@ -1,4 +1,4 @@
-<? // We getting data for this page at the "template/prolog/index-page.php" component ?>
+<? // Getting data for this component at the "template/prolog/index-page.php" ?>
 <div class="container">
   <div class="row">
     <div class="last-article__caption-wrap col-lg-6">

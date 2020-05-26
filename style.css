@@ -874,7 +874,8 @@ input.button:before {
 }
 
 .popular-list-item__description span {
-  opacity: .8
+  opacity: .8;
+  line-height: 1.5
 }
 
 .popular-list-item__description a {
