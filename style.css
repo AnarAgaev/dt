@@ -993,7 +993,10 @@ textarea {
   padding: .962em 1em;
   width: 100%;
   font-size: 1.2rem !important;
-  font-weight: 400
+  font-weight: 400;
+  margin: 0;
+  font-family: inherit;
+ line-height: inherit
 }
 
 input::-webkit-input-placeholder,
