@@ -16,7 +16,7 @@
 </div>
 
 <? // Spinner for actions ?>
-<div class="spinner"> <!-- Добавить  visible для видимости. -->
+<div class="spinner" id="spinner"> <? // Добавить  visible для видимости. ?>
   <div class="loading">
     <div></div>
     <div></div>
@@ -25,7 +25,7 @@
 </div>
 
 <? // Modal container ?>
-<div class="modal">  <!-- Добавить  visible для видимости. -->
+<div class="modal">  <? // Добавить  visible для видимости. ?>
   <div class="modal__dialog">
     <div class="modal__content">
       <div class="modal__body">

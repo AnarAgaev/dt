@@ -331,23 +331,6 @@ input.button:before {
   cursor: crosshair
 }
 
-@media (min-width:1366px) {
-  .container {
-    width: 100%;
-    max-width: 77%
-  }
-
-  .big-screen-hide {
-    display: none
-  }
-}
-
-@media (max-width:1365px) {
-  .big-screen-visible {
-    display: none
-  }
-}
-
 .error-indicator {
   width: 100%;
   max-width: 400px;
@@ -2727,6 +2710,23 @@ nav.visible .mobile-nav-logo {
 
 @media (max-width:991px) {
   .cursor {
+    display: none
+  }
+}
+
+@media (min-width:1366px) {
+  .container {
+    width: 100%;
+    max-width: 77%
+  }
+
+  .big-screen-hide {
+    display: none
+  }
+}
+
+@media (max-width:1365px) {
+  .big-screen-visible {
     display: none
   }
 }

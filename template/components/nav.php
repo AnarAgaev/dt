@@ -1,6 +1,6 @@
 <nav class="nav">
   <ul class="nav__list">
-    <li class="close-nav big-screen-hide"></li>
+    <li class="close-nav big-screen-hide btnToggleNav"></li>
     <? include SITE__DIR.'/template/components/nav-list.php';?>
     <li class="mobile-nav-social big-screen-hide">
       <h4 class="social-title">подписывайтесь на нас в социальных сетях</h4>

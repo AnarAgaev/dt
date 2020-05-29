@@ -32,9 +32,12 @@
     <? require_once SITE__DIR.'template/components/rubric-articles.php'; ?>
 
     <div class="container">
-      <div class="d-flex mb-5 justify-content-center">
-        <button class="button px-5 py-4" style="display: block;">
-          показать больше интересного
+      <div class="d-flex justify-content-center">
+        <button
+          class="button mb-5 px-5 py-4 button_show-more-articles"
+          data-url-resource=""
+          data-target-node-id="rubricArticleList">
+            показать больше интересного
         </button>
       </div>
     </div>

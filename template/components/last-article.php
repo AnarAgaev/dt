@@ -19,7 +19,7 @@
     <div class="last-article__picture-wrap col-lg-6">
       <a class="last-article__picture"
          href="/articles/<?= $response['results'][0]['url']; ?>">
-          <img
+          <img class="cross-cursor"
             src="/images/<?= $response['results'][0]['picture']; ?>"
             alt="<?= $response['results'][0]['title']; ?>"
             title="<?= $response['results'][0]['title']; ?>" >

@@ -6,7 +6,7 @@
     </div>
   </div>
 
-  <div class="article-list row">
+  <div class="article-list row" id="lastArticleList">
     <?
       foreach ($response['results'] as $key => $val) {
 
@@ -15,7 +15,7 @@
         }
 
         ?>
-          <div id="<?= $val['id'] ?>" class="article-list__item visible main-page col-lg-6">
+          <div id="<?= $val['id'] ?>" class="article-list__item main-page col-lg-6">
             <a class="article-list__picture" href="/articles/<?= $val['url'] ?>">
               <div>
                 <div class="padding-huck cross-cursor"

@@ -5,7 +5,7 @@
       <div class="subscribe__subtitle">подписывайся на нашу рассылку</div>
     </div>
     <div class="col-12">
-      <form class="form">
+      <form class="form" id="subscribeForm">
         <div class="form-group"><input placeholder="Адрес электронной почты" name="email" type="text"
             class="form-control"></div><button type="submit" class="button btn btn-primary">Подписаться</button>
         <p class="attention-policy">Нажимая на кнопку "Подписаться", Вы даёте согласие на обработку персональных данных

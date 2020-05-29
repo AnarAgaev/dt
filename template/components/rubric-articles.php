@@ -5,7 +5,7 @@
       <h3>последине публикации в рубрике маленькие квартиры</h3>
     </div>
   </div>
-  <div class="article-list row">
+  <div class="article-list row" id="rubricArticleList">
     <div id="18" class="article-list__item visible rubric-page col-lg-6"><a class="article-list__picture"
         href="/articles/dvuxetazhnyj-loft-v-moskve-72-kv-metra">
         <div>
