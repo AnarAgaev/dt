@@ -1,3 +1,14 @@
+/*
+ * Regulars and Validators
+ */
+const _emailRegular = /.+@.+\..+/i;
+
+const validator = (regular, text) => {
+  return regular.test(text);
+};
+
+
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
   /*
@@ -6,6 +17,31 @@ document.addEventListener("DOMContentLoaded", function(event) {
   window.addEventListener('scroll', () => {
     showPic();
   });
+
+
+  /*
+   * Show hide modal with some text message
+   */
+  const modal = document
+    .getElementById('modalMsg');
+  const btnCloseModalMsg = document
+    .getElementById('btnCloseModalMsg');
+  const showModalMsg = (msg) => {
+    const msgContainer = modal
+      .getElementsByClassName('modal__body')[0];
+
+    msgContainer.innerHTML = msg;
+    modal
+      .classList
+      .add('visible');
+    btnCloseModalMsg.focus();
+  };
+  btnCloseModalMsg
+    .addEventListener('click', () => {
+      modal
+        .classList
+        .remove('visible');
+    });
 
 
 
@@ -204,8 +240,45 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
   /*
-   * Handle subscribe news
+   * Handle subscribe news form
    */
+  const subsForm = document
+    .getElementById('subscribeForm');
+
+  subsForm.addEventListener('submit', e => {
+    e.preventDefault();
+
+    const input = subsForm
+      .getElementsByClassName('form-control')[0];
+
+    const formGroup = subsForm
+      .getElementsByClassName('form-group')[0];
+
+    if (validator(_emailRegular, input.value)) {
+      // Send form
+      formGroup.classList.remove('has-error');
+      spinner.classList.add('visible');
+
+      getResource('scripts/handle-form-subscribe.php?email=' + input.value)
+        .then((response) => {
+          spinner.classList.remove('visible');
+          const msgTrue = 'Мы выслали Вам письмо с подтверждением. ' +
+            'Пожалуйста, проверьте свою почту и подтвердите подписку.';
+          const msgFalse = 'К сожалению, не получилось оформить подписку ' +
+            'на новости. Попробуйте немного позже.';
+
+          response.status
+            ? showModalMsg(msgTrue)
+            : showModalMsg(msgFalse)
+        })
+        .catch((error) => {
+          console.log(error);
+        });
+    } else {
+      input.focus();
+      formGroup.classList.add('has-error');
+    }
+  });
 
 
 

@@ -1,4 +1,5 @@
 <? require_once '../template/prolog/all-pages.php'; ?>
+<? require_once '../template/prolog/confirm-subscription.php'; ?>
 <!DOCTYPE html>
 <html lang="ru" xmlns:og="http://ogp.me/ns#">
 
@@ -16,12 +17,26 @@
       <div class="confirm-subscription">
         <div class="row">
           <div class="col-lg-12">
-            <h1>Подписка<br/>подтверждена</h1>
-            <p>
-              Спасибо за подписку на новости от Designtalk.ru.
-              <br/>
-              Обещаем, будет много интересного из мира дизайна, архитектуры и искусства.
-            </p>
+            <?
+              if ($result) {
+                ?>
+                  <h1>Подписка<br/>подтверждена</h1>
+                  <p>
+                    Спасибо за подписку на новости от Designtalk.ru.<br/>
+                    Обещаем, будет много интересного из мира дизайна, архитектуры и искусства.
+                  </p>
+                <?
+              } else {
+                ?>
+                  <h1>Подписка<br/>не подтверждена</h1>
+                  <p>
+                    К сожалению, не удалось завершить процесс подтверждения подписки.<br/>
+                    Немного позже попробуйте ещё раз перейти по ссылке из письма.<br/>
+                    Приносим свои извиннения.
+                  </p>
+                <?
+              }
+            ?>
             <a href="/" class="button confirm-subscription__btn">Перейти на главную</a>
           </div>
         </div>

@@ -25,13 +25,15 @@
 </div>
 
 <? // Modal container ?>
-<div class="modal">  <? // Добавить  visible для видимости. ?>
+<div class="modal" id="modalMsg">  <? // Добавить  visible для видимости. ?>
   <div class="modal__dialog">
     <div class="modal__content">
       <div class="modal__body">
         <p></p>
       </div>
-      <div class="modal__footer"><button type="button" class="button">Закрыть</button></div>
+      <div class="modal__footer">
+        <button type="button" class="button" id="btnCloseModalMsg">Закрыть</button>
+      </div>
     </div>
   </div>
 </div>

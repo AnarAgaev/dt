@@ -6,8 +6,8 @@
 	shieldingVariables();
   
   // get variables from the POST array
-  extract($_POST);
-  
+  extract($_GET);
+
   if ($email) {
     
     // connecting to db and get $link variable from them
@@ -29,7 +29,7 @@
       $message .= "Вы подписались на новости блога о дизайне и исскусстве Designtalk.ru.\r\n";
       $message .= "В нашей рассылке мы будем сообщать Вам о последних новостях архитектуры, дизайна и искусства.\r\n\n";
       
-      $message .= "Для завершения подписки пожалуйста перейдите ссылке: https://designtalk.ru/confirm-subscription/". $subscription_id ."\r\n";
+      $message .= "Для завершения подписки пожалуйста перейдите ссылке: https://designtalk.ru/confirm-subscription/?sid=". $subscription_id ."\r\n";
       $message .= "Спасибо за подписку на наши новости!\r\n\n\n";
 
       $message .= "***\r\n";

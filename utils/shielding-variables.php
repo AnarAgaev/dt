@@ -1,8 +1,8 @@
 <?
 	/*   
-	 * The funciton is shielding variables 
+	 * The function is shielding variables
    * at the $_POST and $_GET arrays.
-  */  
+   */
  
  	function shieldingVariables() {
 
