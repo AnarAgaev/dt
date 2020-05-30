@@ -18,7 +18,7 @@
            class="form-control email">
 
     <div class="invalid-feedback">
-      Необходимо указать Адрес электронной почты
+      Не корректный Адрес электронной почты
     </div>
   </div>
   <div class="form-group questionGroup">

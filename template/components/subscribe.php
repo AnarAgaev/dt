@@ -6,15 +6,15 @@
     </div>
     <div class="col-12">
       <form class="form" id="subscribeForm">
-        <div class="form-group">
+        <div class="form-group emailGroup">
           <input
           placeholder="Адрес электронной почты"
           name="email"
           type="text"
-          class="form-control">
+          class="form-control email">
 
           <div class="invalid-feedback">
-            Необходимо указать Адрес электронной почты
+            Не корректный Адрес электронной почты
           </div>
         </div>
         <button type="submit" class="button btn btn-primary">

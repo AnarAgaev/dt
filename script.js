@@ -16,6 +16,37 @@ const validator = (regular, text) => {
 
 
 /*
+ * Function for valid controls of any form
+ */
+const validFormControl = (group, controller, regular) => {
+  if (regular) {
+    if (!validator(regular, controller.value)) {
+      controller.focus();
+      group
+        .classList
+        .add('has-error');
+    } else {
+      group
+        .classList
+        .remove('has-error');
+    }
+  } else {
+    if (!controller.value) {
+      controller.focus();
+      group
+        .classList
+        .add('has-error');
+    } else {
+      group
+        .classList
+        .remove('has-error');
+    }
+  }
+};
+
+
+
+/*
  * Stop handle event to 6ms
  */
 let isBlocked = false;
@@ -255,8 +286,11 @@ document.addEventListener("DOMContentLoaded", function(event) {
     );
   };
 
+
+
+
   /*
-   * Show more articles
+   * Handle click on button Show more articles
    */
   const btnShowMoreArticles = document
     .getElementsByClassName('button_show-more-articles')[0];
@@ -292,26 +326,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
       const email = subsForm
         .getElementsByClassName('form-control')[0];
-
       const formGroup = subsForm
         .getElementsByClassName('form-group')[0];
 
-      if (validator(_emailRegular, email.value)) {
+      validFormControl(formGroup, email, _emailRegular);
+
+      if (
+        !subsForm
+          .getElementsByClassName('has-error')
+          .length
+      ) {
         // Send form
-        formGroup.classList.remove('has-error');
         spinner.classList.add('visible');
 
         getResource('scripts/handle-form-subscribe.php?email=' + email.value)
           .then((response) => {
             spinner.classList.remove('visible');
-            const msgTrue = 'Мы выслали Вам письмо с подтверждением. ' +
-              'Пожалуйста, проверьте свою почту и подтвердите подписку.';
-            const msgFalse = 'К сожалению, не получилось оформить подписку ' +
-              'на новости. Попробуйте немного позже.';
 
             response.status
-              ? showModalMsg(msgTrue)
-              : showModalMsg(msgFalse);
+              ? showModalMsg('Мы выслали Вам письмо с подтверждением. Пожалуйста, проверьте свою почту и подтвердите подписку.')
+              : showModalMsg('К сожалению, не получилось оформить подписку на новости. Попробуйте немного позже.');
           })
           .catch((error) => {
             console.log(error);
@@ -336,43 +370,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
     contactsForm.addEventListener('submit', e => {
       e.preventDefault();
 
-      const emailGroup = contactsForm
-        .getElementsByClassName('emailGroup')[0];
-      const email = contactsForm
-        .getElementsByClassName('email')[0];
-
-      const questionGroup = contactsForm
-        .getElementsByClassName('questionGroup')[0];
-      const question = contactsForm
-        .getElementsByClassName('question')[0];
-
-      // Validation message from Contacts form
-      if (!question.value) {
-        question.focus();
-        questionGroup
-          .classList
-          .add('has-error');
-      } else {
-        questionGroup
-          .classList
-          .remove('has-error');
-      }
-
-      // Validation email from Contacts form
-      if (!validator(_emailRegular, email.value)) {
-        email.focus();
-        emailGroup
-          .classList
-          .add('has-error');
-      } else {
-        emailGroup
-          .classList
-          .remove('has-error');
-      }
+      validFormControl(
+        contactsForm
+          .getElementsByClassName('questionGroup')[0],
+        contactsForm
+          .getElementsByClassName('question')[0]
+      );
+      validFormControl(
+        contactsForm
+          .getElementsByClassName('emailGroup')[0],
+        contactsForm
+          .getElementsByClassName('email')[0],
+        _emailRegular
+      );
 
       // Send Contacts form if it valid
-      if (!questionGroup.classList.contains('has-error')
-        && !emailGroup.classList.contains('has-error')) {
+      if (
+        !contactsForm
+          .getElementsByClassName('has-error')
+          .length
+      ) {
         spinner.classList.add('visible');
 
         getResource(
@@ -404,61 +421,33 @@ document.addEventListener("DOMContentLoaded", function(event) {
     forAdvForm.addEventListener('submit', e => {
       e.preventDefault();
 
-      const phoneGroup = forAdvForm
-        .getElementsByClassName('phoneGroup')[0];
-      const phone = forAdvForm
-        .getElementsByClassName('phone')[0];
-
-      const emailGroup = forAdvForm
-        .getElementsByClassName('emailGroup')[0];
-      const email = forAdvForm
-        .getElementsByClassName('email')[0];
-
-      const questionGroup = forAdvForm
-        .getElementsByClassName('questionGroup')[0];
-      const question = forAdvForm
-        .getElementsByClassName('question')[0];
-
-      // Validation message from For advertisers form
-      if (!question.value) {
-        question.focus();
-        questionGroup
-          .classList
-          .add('has-error');
-      } else {
-        questionGroup
-          .classList
-          .remove('has-error');
-      }
-
-      // Validation email from For advertisers form
-      if (!validator(_emailRegular, email.value)) {
-        email.focus();
-        emailGroup
-          .classList
-          .add('has-error');
-      } else {
-        emailGroup
-          .classList
-          .remove('has-error');
-      }
-
-      // Validation phone from For advertisers form
-      if (!validator(_phoneRegular, phone.value)) {
-        phone.focus();
-        phoneGroup
-          .classList
-          .add('has-error');
-      } else {
-        phoneGroup
-          .classList
-          .remove('has-error');
-      }
+      validFormControl(
+        forAdvForm
+          .getElementsByClassName('questionGroup')[0],
+        forAdvForm
+          .getElementsByClassName('question')[0]
+      );
+      validFormControl(
+        forAdvForm
+          .getElementsByClassName('emailGroup')[0],
+        forAdvForm
+          .getElementsByClassName('email')[0],
+        _emailRegular
+      );
+      validFormControl(
+        forAdvForm
+          .getElementsByClassName('phoneGroup')[0],
+        forAdvForm
+          .getElementsByClassName('phone')[0],
+        _phoneRegular
+      );
 
       // Send For advertisers form if it valid
-      if (!questionGroup.classList.contains('has-error')
-        && !emailGroup.classList.contains('has-error')
-        && !phoneGroup.classList.contains('has-error')) {
+      if (
+        !forAdvForm
+          .getElementsByClassName('has-error')
+          .length
+      ) {
         spinner.classList.add('visible');
 
         getResource(
@@ -480,10 +469,67 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
 
+  /*
+   * Handle Publish project form
+   */
+  const publishProjectForm = document
+    .getElementById('publishProjectForm');
 
-    /*
-     * Handle popular articles slider
-     */
+  if (publishProjectForm) {
+    publishProjectForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      validFormControl(
+        publishProjectForm
+          .getElementsByClassName('descriptionGroup')[0],
+        publishProjectForm
+          .getElementsByClassName('description')[0]
+      );
+      validFormControl(
+        publishProjectForm
+          .getElementsByClassName('emailGroup')[0],
+        publishProjectForm
+          .getElementsByClassName('email')[0],
+        _emailRegular
+      );
+      validFormControl(
+        publishProjectForm
+          .getElementsByClassName('phoneGroup')[0],
+        publishProjectForm
+          .getElementsByClassName('phone')[0],
+        _phoneRegular
+      );
+
+      // Send Publish project form if it valid
+      if (
+        !publishProjectForm
+        .getElementsByClassName('has-error')
+        .length
+      ) {
+        spinner.classList.add('visible');
+
+        getResource(
+          'scripts/handle-form-publish-project.php',
+          new FormData(publishProjectForm))
+          .then((response) => {
+            spinner.classList.remove('visible');
+            response.status
+              ? showModalMsg('Спасибо! Редакция рассмотрит Ваш проект и в двухнедельный срок сообщит о решении.')
+              : showModalMsg(_msgFalse);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+  }
+
+
+
+
+  /*
+   * Handle popular articles slider
+   */
   const popularList = document
     .getElementById('popularList');
 
