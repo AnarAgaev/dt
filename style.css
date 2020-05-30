@@ -2665,6 +2665,14 @@ nav.visible .mobile-nav-logo {
   }
 }
 
+nav.visible .close-nav {
+  -webkit-animation: .6s ease-out alternate twist_close_nav;
+  animation: .6s ease-out alternate twist_close_nav;
+}
+
+@-webkit-keyframes twist_close_nav { to { -webkit-transform: rotate(180deg); transform: rotate(180deg) }  }
+@keyframes twist_close_nav { to { -webkit-transform: rotate(180deg); transform: rotate(180deg) }  }
+
 .header {
   display: block;
   position: fixed;
