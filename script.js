@@ -2,6 +2,11 @@
  * Regulars and Validators
  */
 const _emailRegular = /.+@.+\..+/i;
+const _msgTrue = 'Зпрос отправлен. Менеджер свяжется с Вами в ближайшее время.';
+const _msgFalse = 'К сожалению, запрос не отправлен. Попробуйте немного позже.';
+
+
+
 
 const validator = (regular, text) => {
   return regular.test(text);
@@ -160,15 +165,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
     return formData;
   };
 
-  const getResource = async (url, data) => {
+  const getResource = async (url, formData) => {
     const _apiBase = 'http://designtalk/';
 
-    const response = data === undefined
+    const response = formData === undefined
       ? await fetch(`${_apiBase}${url}`)
       : await fetch(`${_apiBase}${url}`, {
         method: 'POST',
         cache  : 'no-cache',
-        body: objectToFormData(data)
+        body: formData
       });
 
     if (!response.ok) {
@@ -256,19 +261,22 @@ document.addEventListener("DOMContentLoaded", function(event) {
     .getElementsByClassName('button_show-more-articles')[0];
   const spinner = document.getElementById('spinner');
 
-  btnShowMoreArticles
-    .addEventListener('click', (e) => {
-      spinner.classList.add('visible');
+  if (btnShowMoreArticles) {
+    btnShowMoreArticles
+      .addEventListener('click', (e) => {
+        spinner.classList.add('visible');
 
-      getResource(e.target.dataset.urlResource)
-        .then((response) => {
-          spinner.classList.remove('visible');
-          setArticles(e, response);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    });
+        getResource(e.target.dataset.urlResource)
+          .then((response) => {
+            spinner.classList.remove('visible');
+            setArticles(e, response);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      });
+  }
+
 
 
   /*
@@ -277,40 +285,110 @@ document.addEventListener("DOMContentLoaded", function(event) {
   const subsForm = document
     .getElementById('subscribeForm');
 
-  subsForm.addEventListener('submit', e => {
-    e.preventDefault();
+  if (subsForm) {
+    subsForm.addEventListener('submit', e => {
+      e.preventDefault();
 
-    const input = subsForm
-      .getElementsByClassName('form-control')[0];
+      const email = subsForm
+        .getElementsByClassName('form-control')[0];
 
-    const formGroup = subsForm
-      .getElementsByClassName('form-group')[0];
+      const formGroup = subsForm
+        .getElementsByClassName('form-group')[0];
 
-    if (validator(_emailRegular, input.value)) {
-      // Send form
-      formGroup.classList.remove('has-error');
-      spinner.classList.add('visible');
+      if (validator(_emailRegular, email.value)) {
+        // Send form
+        formGroup.classList.remove('has-error');
+        spinner.classList.add('visible');
 
-      getResource('scripts/handle-form-subscribe.php?email=' + input.value)
-        .then((response) => {
-          spinner.classList.remove('visible');
-          const msgTrue = 'Мы выслали Вам письмо с подтверждением. ' +
-            'Пожалуйста, проверьте свою почту и подтвердите подписку.';
-          const msgFalse = 'К сожалению, не получилось оформить подписку ' +
-            'на новости. Попробуйте немного позже.';
+        getResource('scripts/handle-form-subscribe.php?email=' + email.value)
+          .then((response) => {
+            spinner.classList.remove('visible');
+            const msgTrue = 'Мы выслали Вам письмо с подтверждением. ' +
+              'Пожалуйста, проверьте свою почту и подтвердите подписку.';
+            const msgFalse = 'К сожалению, не получилось оформить подписку ' +
+              'на новости. Попробуйте немного позже.';
 
-          response.status
-            ? showModalMsg(msgTrue)
-            : showModalMsg(msgFalse)
-        })
-        .catch((error) => {
-          console.log(error);
-        });
-    } else {
-      input.focus();
-      formGroup.classList.add('has-error');
-    }
-  });
+            response.status
+              ? showModalMsg(msgTrue)
+              : showModalMsg(msgFalse);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      } else {
+        email.focus();
+        formGroup.classList.add('has-error');
+      }
+    });
+  }
+
+
+
+
+  /*
+   * Handle contacts form
+   */
+  const contactsForm = document
+    .getElementById('contactsForm');
+
+  if (contactsForm) {
+    contactsForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const emailGroup = contactsForm
+        .getElementsByClassName('emailGroup')[0];
+      const email = contactsForm
+        .getElementsByClassName('email')[0];
+
+      const questionGroup = contactsForm
+        .getElementsByClassName('questionGroup')[0];
+      const question = contactsForm
+        .getElementsByClassName('question')[0];
+
+      // Validation message from Contacts form
+      if (!question.value) {
+        question.focus();
+        questionGroup
+          .classList
+          .add('has-error');
+      } else {
+        questionGroup
+          .classList
+          .remove('has-error');
+      }
+
+      // Validation email from Contacts form
+      if (!validator(_emailRegular, email.value)) {
+        email.focus();
+        emailGroup
+          .classList
+          .add('has-error');
+      } else {
+        emailGroup
+          .classList
+          .remove('has-error');
+      }
+
+      // Send Contacts form if it valid
+      if (!questionGroup.classList.contains('has-error')
+        && !emailGroup.classList.contains('has-error')) {
+        spinner.classList.add('visible');
+
+        getResource(
+          'scripts/handle-form-contacts.php',
+          new FormData(contactsForm))
+            .then((response) => {
+              spinner.classList.remove('visible');
+              response.status
+                ? showModalMsg(_msgTrue)
+                : showModalMsg(_msgFalse);
+            })
+            .catch((error) => {
+              console.log(error);
+            });
+      }
+    });
+  }
 
 
 
@@ -318,12 +396,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
   /*
    * Handle popular articles slider
    */
+  const popularList = document
+    .getElementById('popularList');
+
   const handlePopularControls = (direction) => {
     const windowWidth = window.innerWidth;
     const itemWidth = 305; // from .popular-list-item as width + margin-right
-
-    const popularList = document
-      .getElementById('popularList');
 
     const positionRight = popularList
       .getBoundingClientRect()
@@ -343,17 +421,19 @@ document.addEventListener("DOMContentLoaded", function(event) {
     }
   };
 
-  document
-    .getElementById('popularControllerLeft')
-    .addEventListener('click', () => {
-      handlePopularControls(1);
-    });
+  if (popularList) {
+    document
+      .getElementById('popularControllerLeft')
+      .addEventListener('click', () => {
+        handlePopularControls(1);
+      });
 
-  document
-    .getElementById('popularControllerRight')
-    .addEventListener('click', () => {
-      handlePopularControls(-1);
-    });
+    document
+      .getElementById('popularControllerRight')
+      .addEventListener('click', () => {
+        handlePopularControls(-1);
+      });
+  }
 
 
 

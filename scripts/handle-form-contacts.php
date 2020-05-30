@@ -45,7 +45,5 @@
   	'status' => $status,
   );
   
-  
   echo json_encode($response);
-  
 ?>
