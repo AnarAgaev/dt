@@ -3,7 +3,7 @@
   <div class="container">
     <h3 class="popular__title">это читают больше всего</h3>
     <div class="popular__list__wrap">
-      <div class="popular__list" style="left: 0px;">
+      <div class="popular__list" id="popularList">
         <?
           foreach ($popular['results'] as $k => $value) {
             ?>
@@ -31,8 +31,12 @@
       </div>
     </div>
     <div class="popular__controls">
-      <div class="controller controller__left"></div>
-      <div class="controller"></div>
+      <div class="controller controller__left"
+           id="popularControllerLeft">
+      </div>
+      <div class="controller"
+           id="popularControllerRight">
+      </div>
     </div>
   </div>
 </div>

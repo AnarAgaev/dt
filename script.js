@@ -9,6 +9,20 @@ const validator = (regular, text) => {
 
 
 
+/*
+ * Stop handle event to 6ms
+ */
+let isBlocked = false;
+const blocker = (timeout = 600) => {
+  isBlocked = true;
+  setTimeout(
+    () => isBlocked = false,
+    timeout
+  );
+};
+
+
+
 document.addEventListener("DOMContentLoaded", function(event) {
 
   /*
@@ -279,6 +293,49 @@ document.addEventListener("DOMContentLoaded", function(event) {
       formGroup.classList.add('has-error');
     }
   });
+
+
+
+
+  /*
+   * Handle popular articles slider
+   */
+  const handlePopularControls = (direction) => {
+    const windowWidth = window.innerWidth;
+    const itemWidth = 305; // from .popular-list-item as width + margin-right
+
+    const popularList = document
+      .getElementById('popularList');
+
+    const positionRight = popularList
+      .getBoundingClientRect()
+      .right;
+
+    const  positionCurrent = popularList
+      .offsetLeft;
+
+    const offset = positionCurrent + itemWidth * direction;
+
+    const move = (direction === -1 && positionRight > windowWidth)
+      || (direction === 1 && positionCurrent);
+
+    if (move && !isBlocked) {
+      blocker(500); // stop other handlers to 600ms
+      popularList.style.left = offset + 'px';
+    }
+  };
+
+  document
+    .getElementById('popularControllerLeft')
+    .addEventListener('click', () => {
+      handlePopularControls(1);
+    });
+
+  document
+    .getElementById('popularControllerRight')
+    .addEventListener('click', () => {
+      handlePopularControls(-1);
+    });
 
 
 

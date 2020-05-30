@@ -793,7 +793,7 @@ input.button:before {
   justify-content: flex-start;
   position: absolute;
   left: 0;
-  transition: left .3s ease
+  transition: left .4s ease
 }
 
 .popular-list-item__caption span {
