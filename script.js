@@ -125,7 +125,14 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
   [].forEach.call(btnsToggleNav, el => {
       el.addEventListener('click', () => {
-        nav.classList.toggle("visible");
+        nav
+          .classList
+          .toggle("visible");
+
+        document
+          .body
+          .classList
+          .toggle('modal-open');
       });
     });
 

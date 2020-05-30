@@ -49,6 +49,10 @@ body {
   overflow-x: hidden
 }
 
+.modal-open {
+  overflow: hidden
+}
+
 li,
 ul {
   margin: 0;
