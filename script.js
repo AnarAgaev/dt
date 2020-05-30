@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
   /*
-   * Show hide modal with some text message
+   * Show/hide modal with some text message
    */
   const modal = document
     .getElementById('modalMsg');
@@ -45,16 +45,27 @@ document.addEventListener("DOMContentLoaded", function(event) {
       .getElementsByClassName('modal__body')[0];
 
     msgContainer.innerHTML = msg;
+
     modal
       .classList
       .add('visible');
     btnCloseModalMsg.focus();
+
+    document
+      .body
+      .classList
+      .add('modal-open');
   };
   btnCloseModalMsg
     .addEventListener('click', () => {
       modal
         .classList
         .remove('visible');
+
+      document
+        .body
+        .classList
+        .remove('modal-open');
     });
 
 
