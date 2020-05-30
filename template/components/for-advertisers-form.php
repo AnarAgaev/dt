@@ -1,15 +1,16 @@
-<form class="form" id="contactsForm">
+<form class="form" id="forAdvForm">
   <div class="form-group">
-    <input placeholder="Ваше имя"
-           name="name"
-           type="text"
-           class="form-control">
+    <input placeholder="Ваше имя" name="name" type="text" class="form-control">
   </div>
-  <div class="form-group">
+  <div class="form-group phoneGroup">
     <input placeholder="Телефон для контакта"
            name="phone"
            type="text"
-           class="form-control">
+           class="form-control phone">
+
+    <div class="invalid-feedback">
+      Некорректный номер телефона
+    </div>
   </div>
   <div class="form-group emailGroup">
     <input placeholder="Адрес электронной почты"
@@ -34,10 +35,8 @@
   <button type="submit" class="button btn btn-primary">
     Отправить
   </button>
-  <p class="attention-policy">
-    Нажимая на кнопку "Отправить", Вы даёте согласие на обработку персональных
-    данных согласно <a class="link" href="/privacy-policy">Политике
-    конфиденциальности</a> и <a class="link" href="/policy-personal-data">Политике обработки
-    персональных данных</a>.
+  <p class="attention-policy">Нажимая на кнопку "Отправить", Вы даёте согласие на обработку персональных
+    данных согласно <a class="link" href="/privacy-policy">Политике конфиденциальности</a> и <a class="link"
+      href="/policy-personal-data">Политике обработки персональных данных</a>.
   </p>
 </form>

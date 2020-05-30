@@ -2,6 +2,7 @@
  * Regulars and Validators
  */
 const _emailRegular = /.+@.+\..+/i;
+const _phoneRegular = /^((8|\+7)[- ]?)?(\(?\d{3}\)?[- ]?)?[\d\- ]{5,10}$/i;
 const _msgTrue = 'Зпрос отправлен. Менеджер свяжется с Вами в ближайшее время.';
 const _msgFalse = 'К сожалению, запрос не отправлен. Попробуйте немного позже.';
 
@@ -394,8 +395,95 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
 
   /*
-   * Handle popular articles slider
+   * Handle For advertisers form
    */
+  const forAdvForm = document
+    .getElementById('forAdvForm');
+
+  if (forAdvForm) {
+    forAdvForm.addEventListener('submit', e => {
+      e.preventDefault();
+
+      const phoneGroup = forAdvForm
+        .getElementsByClassName('phoneGroup')[0];
+      const phone = forAdvForm
+        .getElementsByClassName('phone')[0];
+
+      const emailGroup = forAdvForm
+        .getElementsByClassName('emailGroup')[0];
+      const email = forAdvForm
+        .getElementsByClassName('email')[0];
+
+      const questionGroup = forAdvForm
+        .getElementsByClassName('questionGroup')[0];
+      const question = forAdvForm
+        .getElementsByClassName('question')[0];
+
+      // Validation message from For advertisers form
+      if (!question.value) {
+        question.focus();
+        questionGroup
+          .classList
+          .add('has-error');
+      } else {
+        questionGroup
+          .classList
+          .remove('has-error');
+      }
+
+      // Validation email from For advertisers form
+      if (!validator(_emailRegular, email.value)) {
+        email.focus();
+        emailGroup
+          .classList
+          .add('has-error');
+      } else {
+        emailGroup
+          .classList
+          .remove('has-error');
+      }
+
+      // Validation phone from For advertisers form
+      if (!validator(_phoneRegular, phone.value)) {
+        phone.focus();
+        phoneGroup
+          .classList
+          .add('has-error');
+      } else {
+        phoneGroup
+          .classList
+          .remove('has-error');
+      }
+
+      // Send For advertisers form if it valid
+      if (!questionGroup.classList.contains('has-error')
+        && !emailGroup.classList.contains('has-error')
+        && !phoneGroup.classList.contains('has-error')) {
+        spinner.classList.add('visible');
+
+        getResource(
+          'scripts/handle-form-for-advertisers.php',
+          new FormData(forAdvForm))
+          .then((response) => {
+            spinner.classList.remove('visible');
+            response.status
+              ? showModalMsg('Зпрос отправлен. Мы ответим Вам в ближайшее время.')
+              : showModalMsg(_msgFalse);
+          })
+          .catch((error) => {
+            console.log(error);
+          });
+      }
+    });
+  }
+
+
+
+
+
+    /*
+     * Handle popular articles slider
+     */
   const popularList = document
     .getElementById('popularList');
 

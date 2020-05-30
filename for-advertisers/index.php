@@ -65,19 +65,7 @@
           <h3>или воспользуйтесь формой ниже</h3>
         </div>
         <div class="col-lg-7">
-          <form class="form">
-            <div class="form-group"><input placeholder="Ваше имя" name="name" type="text" class="form-control"></div>
-            <div class="form-group"><input placeholder="Телефон для контакта" name="phone" type="text"
-                class="form-control"></div>
-            <div class="form-group"><input placeholder="Адрес электронной почты" name="email" type="text"
-                class="form-control"></div>
-            <div class="form-group"><textarea rows="7" placeholder="Ваш вопрос или предложение" name="msg"
-                class="form-control"></textarea></div><button type="submit"
-              class="button btn btn-primary">Отправить</button>
-            <p class="attention-policy">Нажимая на кнопку "Отправить", Вы даёте согласие на обработку персональных
-              данных согласно <a class="link" href="/privacy-policy">Политике конфиденциальности</a> и <a class="link"
-                href="/policy-personal-data">Политике обработки персональных данных</a>.</p>
-          </form>
+          <? require_once SITE__DIR.'template/components/for-advertisers-form.php'; ?>
         </div>
       </div>
     </div>
