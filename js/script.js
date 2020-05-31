@@ -243,10 +243,18 @@ document.addEventListener("DOMContentLoaded", function(event) {
       });
 
       // Adding rubric of articles
-      const rubric = document.createElement('a');
+      const rubric = pageName === 'rubrics-page'
+        ? document.createElement('span')
+        : document.createElement('a');
+
+      if (pageName !== 'rubrics-page') {
+        rubric.href = '/rubrics/' + resourceList[i].rubric.link + '/';
+      }
+
       rubric.classList.add('article-list__rubric', 'link');
-      rubric.href = resourceList[i].rubric.link;
       rubric.innerHTML = resourceList[i].rubric.name;
+
+
 
       // Adding caption of articles
       const caption = document.createElement('a');

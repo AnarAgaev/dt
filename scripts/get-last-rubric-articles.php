@@ -1,5 +1,4 @@
 <?
-
   // shielding variables
   require_once '../utils/shielding-variables.php';
 
@@ -11,18 +10,32 @@
 	// how many articles will we send to the client
   $count = 6;
 
-
   require_once '../config/connect.php'; // connecting to db and get $link variable from them
 
+  $res_rubric = mysqli_fetch_assoc(mysqli_query($link, "
+  	SELECT
+    	`id`,
+      `link`,
+      `name`
+    FROM `rubrics`
+    WHERE `link`='$rubric'
+  "));
 
+
+  $response['rubricId'] = $res_rubric['id'];
+  $response['rubricLink'] = $res_rubric['link'];
+  $response['rubricName'] = $res_rubric['name'];
 
   // get the number of articles in the database
-  $res_count = mysqli_fetch_assoc(mysqli_query($link, "SELECT COUNT(*) FROM `articles`"));
+  $res_count = mysqli_fetch_assoc(mysqli_query($link, "
+    SELECT COUNT(*)
+    FROM `articles`
+    WHERE `rubric`=$res_rubric[id]
+  " ));
+
   $response['count'] = $res_count['COUNT(*)'];
 
-
   $num_elements = $count; // set number of requested articles
-
 
   /*
    * Set the number of pages in a variable.
@@ -49,12 +62,13 @@
   // If we are on the last page, we rewrite the previous and next page.
   if ($page == $num_pages) {
     $response['next'] = null;
-    $response['previous'] = '/scripts/get-last-articles.php?page=' . ($page - 1);
+    $response['previous'] = '/scripts/get-last-rubric-articles.php?rubric='. $rubric .'&page='. ($page - 1);
   } else {
-    $response['next'] = '/scripts/get-last-articles.php?page=' . ($page + 1);
+    $response['next'] = '/scripts/get-last-rubric-articles.php?rubric='. $rubric .'&page='. ($page + 1);
 
-    $response['previous'] = ($page == 1) ?
-      null : '/scripts/get-last-articles.php?page=' . ($page - 1);
+    $response['previous'] = ($page == 1)
+      ? null
+      : '/scripts/get-last-rubric-articles.php?rubric='. $rubric .'&page='. ($page - 1);
   }
 
 
@@ -71,6 +85,7 @@
       `preview`,
       `picture`
     FROM `articles`
+    WHERE `rubric`=$res_rubric[id]
     ORDER BY `date` DESC
     LIMIT " . $start . " , " . $num_elements
   );
@@ -80,19 +95,11 @@
 
     $row = mysqli_fetch_row($res_articles);
 
-
-    $res_rubric = mysqli_fetch_assoc(mysqli_query($link, "
-      SELECT `id`, `link`, `name`
-      FROM `rubrics`
-      WHERE `id`='$row[2]'
-    "));
-
-
     $res_visits = mysqli_fetch_assoc(mysqli_query($link, "
       SELECT `visits`
       FROM `visits`
       WHERE `id`= $row[0]
-    "));
+    " ));
 
 
     $results[] = array(
@@ -115,18 +122,19 @@
 
 
   // Reset next page if well be print all articles
-  $count_articles_at_the_top_of_page = 1; // it will be 3 or more at the slider on the index page
+  $count_articles_at_the_top_of_page = 1;
   $count_articles_on_first_page = 7;
   $count_articles_on_other_pages = $count;
 
   $will_print = $count_articles_at_the_top_of_page
-  	          + $count_articles_on_first_page
+              + $count_articles_on_first_page
               + ($page - 1)
               * $count_articles_on_other_pages;
 
   if ($will_print >= $response['count']) {
     $response['next'] = null;
   }
+
 
   echo json_encode($response);
 

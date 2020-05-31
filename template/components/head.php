@@ -27,4 +27,4 @@
 <meta name="msapplication-TileImage" content="favicon/ms-icon-144x144.png">
 <meta name="theme-color" content="#ffffff">
 
-<link href="/style.css" rel="stylesheet">
+<link href="/style/style.css" rel="stylesheet">

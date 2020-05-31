@@ -41,7 +41,7 @@
       <div class="d-flex justify-content-center">
         <button
           class="button mb-5 px-5 py-4 button_show-more-articles"
-          data-url-resource="/scripts/get-last-articles.php"
+          data-url-resource="<?= $response['next']; ?>" <? // Getting $response['next'] at the "template/prolog/index-page.php" ?>
           data-target-node-id="lastArticleList"
           data-page-name="main-page">
             показать больше интересного

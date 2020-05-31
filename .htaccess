@@ -1,1 +1,8 @@
+RewriteEngine on
+
+# Редактирум URL адрес рубрики с именем рубрики как вложенная папка на URL запрос к файлу rubrics/index.php
+# Страница с конкретной рубрикой формируется динамически, где имя рубрики получаем из URL адреса путём разбора строки URL
+RewriteRule ^rubrics/(.*)$ rubrics/index.php
+
+# Своя ошибка на 404 (Page not found) ошибку
 ErrorDocument 404 /404.php

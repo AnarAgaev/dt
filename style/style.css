@@ -700,7 +700,7 @@ input.button:before {
   }
 }
 
-.rubric-page .article-list__rubric {
+.rubrics-page .article-list__rubric {
   cursor: default;
   background: none;
   color: rgba(0, 0, 0, .5)

@@ -34,16 +34,22 @@
       'title' => $row[3],
       'preview' => $row[4],
       'picture' => $row[5],
-	      'rubric' => array(
+      'rubric' => array(
         'id' => $res_rubric['id'],
         'link' => $res_rubric['link'],
         'name' => $res_rubric['name']
-      ),
+        ),
     );
   }
 
 
   $response['results'] = $results;
+
+  /*
+   * Because the script is getting data for firs page,
+   * writing at the next page variable page number 2
+   */
+  $response['next'] = '/scripts/get-last-articles.php?page=2';
 
   /*
    * Getting last articles for popular list

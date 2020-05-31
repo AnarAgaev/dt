@@ -1,5 +1,5 @@
 <? require_once '../template/prolog/all-pages.php'; ?>
-<? require_once '../template/prolog/confirm-subscription.php'; ?>
+<? require_once '../template/prolog/confirm-subscription-page.php'; ?>
 <!DOCTYPE html>
 <html lang="ru" xmlns:og="http://ogp.me/ns#">
 

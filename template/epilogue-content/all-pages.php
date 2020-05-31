@@ -42,4 +42,4 @@
 <div class="cursor" id="cursor"></div>
 
 <? // Here is base JS script ?>
-<script src="/script.js"></script>
+<script src="/js/script.js"></script>
