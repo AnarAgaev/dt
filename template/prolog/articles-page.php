@@ -91,7 +91,7 @@
 
   // If the requested article is not there, rewrite the response to false
   if ($response['id'] === null) {
-    $response = false;
+    require_once SITE__DIR.'template/components/redirect-to-404.php';
   } else {
 
     // Update the number of article views in the database

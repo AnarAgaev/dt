@@ -9,22 +9,25 @@
     WHERE `link`='$rubric'
   "));
 
-  // Getting the number of articles at selected rubric in the DB
-  $res_count = mysqli_fetch_assoc(mysqli_query($link, "
-    SELECT COUNT(*)
-    FROM `articles`
-    WHERE `rubric`=$res_rubric[id]
-  " ));
-
-  $response['count'] = $res_count['COUNT(*)'];
-
-  /*
-   * Getting last articles from selected rubric
-   * for latest article and article list on
-   * page with some selected rubric
-   */
 
   if ($res_rubric) {
+
+    // Getting the number of articles at selected rubric in the DB
+    $res_count = mysqli_fetch_assoc(mysqli_query($link, "
+      SELECT COUNT(*)
+      FROM `articles`
+      WHERE `rubric`=$res_rubric[id]
+    " ));
+
+    $response['count'] = $res_count['COUNT(*)'];
+
+    /*
+     * Getting last articles from selected rubric
+     * for latest article and article list on
+     * page with some selected rubric
+     */
+
+
     $count_last_articles = 8;
 
     $articles = mysqli_query($link, "
@@ -72,8 +75,6 @@
     $response['rubric']['link'] = $res_rubric['link'];
     $response['rubric']['name'] = $res_rubric['name'];
   } else  {
-
-    echo 'Show rubric list';
-
+    require_once SITE__DIR.'template/components/redirect-to-404.php';
   }
 ?>
