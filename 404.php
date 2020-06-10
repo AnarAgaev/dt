@@ -1,3 +1,4 @@
+<? require_once 'utils/set-base-root.php'; ?>
 <? require_once 'template/prolog/all-pages.php'; ?>
 <!DOCTYPE html>
 <html lang="ru" xmlns:og="http://ogp.me/ns#">

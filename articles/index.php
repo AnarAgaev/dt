@@ -1,3 +1,4 @@
+<? require_once '../utils/set-base-root.php'; ?>
 <? require_once '../template/prolog/all-pages.php'; ?>
 <? require_once '../template/prolog/articles-page.php'; ?>
 <!DOCTYPE html>
